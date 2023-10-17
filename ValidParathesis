@@ -1,0 +1,37 @@
+import java.util.*;
+
+public class ValidParentheses{
+    private static final Map<Character, Character> bracketPairs = new HashMap<>();
+
+    // static initializer to map out the pairs
+    static{
+        bracketPairs.put(')', '(');
+        bracketPairs.put(']', '[');
+        bracketPairs.put('}', '{');
+    }
+
+    public static boolean isValid(String s){
+        Stack<Character> stack = new Stack<>();
+        for(char c: s.toCharArray()){ // kelly clarkson
+            if(bracketPairs.containsValue(c)){ // checking 1st to see if value, opened {,[, or, ( symbol is contained
+                stack.push(c); // if it is, push into stack
+            }else if(bracketPairs.containsKey(c)){ // else, if the key, a closed },], or, ) symbol is the current val,
+                if(stack.isEmpty() || !(stack.pop().equals(bracketPairs.get(c)))){ // AND:
+                                                                                 // if the stack is NOT empty, OR
+                                                                                 // the top value of the stack is NOT equivalent to the current Character
+                    return false;
+                }
+            }
+        }
+
+        return stack.isEmpty();
+    }
+
+    public static void main(String[] args){
+        String input1 = "()[]{}";  // Valid
+        String input2 = "({}])";   // Invalid
+
+        System.out.println("Is input1 valid? " + isValid(input1));
+        System.out.println("Is input2 valid? " + isValid(input2));
+    }
+}
