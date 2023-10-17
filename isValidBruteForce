@@ -1,0 +1,53 @@
+import java.util.*;
+public class isValidStack{
+    public static void main(String[] args){
+        System.out.println("The string is valid? "+isValid("{ }"));
+
+    }
+
+    public static boolean isValid2(String s) {
+        Stack<Character> stack = new Stack<>();
+
+        for (int i = 0; i < s.length(); i++) {
+            char currentChar = s.charAt(i);
+
+            if (currentChar == '(' || currentChar == '{' || currentChar == '[') {
+                stack.push(currentChar);
+            } else if (currentChar == ')' || currentChar == '}' || currentChar == ']') {
+                if (stack.isEmpty()) {
+                    return false;  // No matching opening bracket for this closing bracket
+                }
+
+                char openBracket = stack.pop();
+                if (!isMatching(openBracket, currentChar)) {
+                    return false;  // Opening and closing brackets do not match
+                }
+            }
+        }
+
+        return stack.isEmpty();  // Stack should be empty if all brackets are matched
+    }
+
+    private static boolean isMatching(char open, char close) {
+        return  (open == '(' && close == ')') ||
+                (open == '{' && close == '}') ||
+                (open == '[' && close == ']');
+    }
+
+
+    public static boolean isValid(String s){
+        // brute force method:
+        Stack<String> myStack = new Stack<>();
+        for(int i = 0; i < s.length(); i++){
+            // If the opening character is an open symbol, push it onto the stack.
+            if(s.contains("(")||s.contains("{")||s.contains("[")){
+                myStack.push(String.valueOf(s.charAt(0)));
+                myStack.pop();
+                if(s.contains("(")||s.contains("{")||s.contains("[")&&myStack.isEmpty()){
+
+                }
+          }
+        }
+        return false;
+    }
+}
